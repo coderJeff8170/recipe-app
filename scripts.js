@@ -12,13 +12,14 @@ console.log('hello!');
             * #ingredients - X
             * #preparation - X
     * UI - Recipes Section - X
-        * turn into accordian with bootstrap
+        * turn into accordian with bootstrap - X
+        * make accordian dynamic
     * JS - Event handler for Add button click - X
     * JS - Global variables
         * Storage Array - X
         * Default recipes - X
     * JS - Recipe class - X
-    * JS - Store data in localstorage
+    * JS - Store data in localstorage - take a look to ensure correctness
     * JS - Retrieve data from localstorage so that persists on each load
     * JS - Func to add recipe to storage array and localstorage - X
     * JS - Func to remove individual recipe from localstorage
@@ -34,12 +35,16 @@ const recipeTemplate = document.querySelector("#recipe-template");
 const recipesElement = document.querySelector("#all-recipes");
 const addRecipeBtn = document.querySelector("#submitRecipe");
 
+//recipe number for reference
+let recipeNumber = 0;
+
 // Storage array for handling recipes
 let allRecipes = [];
 
 // Recipe class
 class Recipe {
     constructor (name, ingredients, prep) {
+        this.recipeNumber = recipeNumber;
         this.name = name;
         this.ingredients = ingredients;
         this.prep = prep;
@@ -50,8 +55,9 @@ class Recipe {
     displayRecipe(){
         //clone node using this particular element reference when constructor is called
         this.elementReference = recipeTemplate.cloneNode(true);
-        //need references to each part of the recipe:
+        //need references to each part of the recipe template:
         const recipeNameElement = this.elementReference.querySelector(".recipe-name");
+        const recipeBodyElement = this.elementReference.querySelector(".recipe-body");
         const recipeIngredientElement = this.elementReference.querySelector(".recipe-ingredients");
         const recipePrepElement = this.elementReference.querySelector(".recipe-prep");
         //since there is more than one part to fill, use an array of objects to store the element reference and the text used to fill it
@@ -66,10 +72,17 @@ class Recipe {
                 el.element.innerText = el.section;
             }
         })
+        //set data-target and aria-controls on button to `collapse${recipeNumber}`
+        recipeNameElement.setAttribute("data-target", `#collapse${recipeNumber}`);
+        recipeNameElement.setAttribute("aria-controls", `collapse${recipeNumber}`);
+        //set id on recipe-body element to `collapse${recipeNumber}`
+        recipeBodyElement.setAttribute("id", `collapse${recipeNumber}`);
         //display the recipe
         this.elementReference.classList.remove("hide");
         //add recipe to the DOM
         recipesElement.appendChild(this.elementReference);
+        //increment recipe number each time a new Recipe is created
+        recipeNumber++;
     }
 }
 
