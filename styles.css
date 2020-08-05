@@ -1,0 +1,11 @@
+#app-container {
+    background-color: cyan;
+}
+
+input, textarea {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

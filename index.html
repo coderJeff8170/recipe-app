@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Javascript file -->
+    <script src="scripts.js" defer></script>
+
+    <title>My Recipe Box</title>
+  </head>
+  <body>
+    <div class="container-fluid" id="app-container">
+        <section id="titleSection" class="jumbotron">
+            <h1 class="display-4">My Recipe Box</h1>
+            <p class="lead">Store your own recipes for later reference and use!</p>
+            <hr class="my-4">
+            <p>Enter a recipe below and click the 'Submit Recipe' button to begin.</p>
+        </section>
+        <section id="recipeInput" class="row">
+            <div class="col">
+                <form>
+                    <!-- Recipe name text field -->
+                    <div class="form-group">
+                        <label for="name">Recipe Name</label>
+                        <input type="text" onkeyup="onType()" placeholder="Recipe name" id="name" />
+                    </div>
+                    <!-- Ingredients textarea -->
+                    <div class="form-group">
+                        <label for="ingredients">Ingredients List</label>
+                        <textarea id="ingredients" onkeyup="onType()" placeholder="Enter Ingredients"></textarea>
+                    </div>
+                    <!-- Preparation textarea -->
+                    <div class="form-group">
+                        <label for="preparation">Preparation Instructions</label>
+                        <textarea id="preparation" onkeyup="onType()" placeholder="Enter Instructions"></textarea>
+                    </div>
+
+                    <!-- Add button -->
+                    <button type="button" onclick="onAddRecipe()" id="submitRecipe" class="btn btn-lg btn-primary">Add Recipe</button>
+                </form>
+            </div>
+        </section>
+        <section id="recipeContainer" class="row">
+            <!-- <div class="row" id="all-recipes"> -->
+
+
+
+                <div class="accordion" id="all-recipes">
+                    <div class="card hide" id="recipe-template">
+                      <div class="card-header">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link btn-block text-left recipe-name" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Recipe Name
+                          </button>
+                        </h2>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse show">
+                        <div class="card-body recipe-ingredients">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
+                          </div>
+                        <div class="card-body recipe-prep">
+                          Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                        </div>
+                        <button class="btn btn-primary remove-recipe">Remove</button>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+                <div class="col-12 recipe hide" id="recipe-template">
+                    <h2 class="recipe-name">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    </h2>
+                    <p class="recipe-ingredients">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                    <p class="recipe-prep">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    </p>
+                    <a class="remove-recipe">Remove</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </body>
+</html>
