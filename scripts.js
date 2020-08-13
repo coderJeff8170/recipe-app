@@ -1,7 +1,10 @@
 console.log('hello!');
 
 /* REQUIREMENTS
+    *UI - Add a thumbnail image for each recipe
+    *UI - if they try to click without filling out all fields, do an alert.
     * UI - Add Recipe Form
+        * Add type of recipe dropdown or select for recipe filter
         * Recipe Name (text input) - X
         * Ingredients (textarea) - X
         * Preparation (textarea) - X
@@ -13,35 +16,43 @@ console.log('hello!');
             * #preparation - X
     * UI - Recipes Section - X
         * turn into accordian with bootstrap - X
-        * make accordian dynamic
+        * make accordian dynamic - X
     * JS - Event handler for Add button click - X
     * JS - Global variables
         * Storage Array - X
         * Default recipes - X
     * JS - Recipe class - X
-    * JS - Store data in localstorage - take a look to ensure correctness
-    * JS - Retrieve data from localstorage so that persists on each load
+    * JS - Store data in localstorage - X
+    * JS - Retrieve data from localstorage so that persists on each load -X
     * JS - Func to add recipe to storage array and localstorage - X
-    * JS - Func to remove individual recipe from localstorage
+    * 
+    * JS - Func to remove individual recipe from storage array and  localstorage - X
     * JS - Func to remove ALL recipes
+    * JS/uI - "Are you sure?" modal for deletes
+    * JS - func to filter recipes by type
+    * UI - add recipe search/nav bar
+    * UI - make recipe viewer window obvious
+    * UI - Make recipes tabs on large screens, and accordion on small screens
 */
+
+/* -------------------------------------------- global variables --------- */
 
 const nameField = document.querySelector("#name");
 const ingredientsField = document.querySelector("#ingredients");
 const prepField = document.querySelector("#preparation");
 const recipeContainer = document.querySelector("#recipeContainer");
 const recipeTemplate = document.querySelector("#recipe-template");
-// append recipes to this element vvv
 const recipesElement = document.querySelector("#all-recipes");
 const addRecipeBtn = document.querySelector("#submitRecipe");
+const recipeSubmitForm = document.querySelector("#recipeSubmitForm");
+const searchInput = document.querySelector("searchInput");
 
-//recipe number for reference
 let recipeNumber = 0;
+let savedRecipes = [];
+let newRecipes = [];
 
-// Storage array for handling recipes
-let allRecipes = [];
 
-// Recipe class
+/* -------------------------------------------- Classes --------- */
 class Recipe {
     constructor (name, ingredients, prep) {
         this.recipeNumber = recipeNumber;
@@ -55,7 +66,7 @@ class Recipe {
     displayRecipe(){
         //clone node using this particular element reference when constructor is called
         this.elementReference = recipeTemplate.cloneNode(true);
-        //need references to each part of the recipe template:
+        //references to each part of the recipe template:
         const recipeNameElement = this.elementReference.querySelector(".recipe-name");
         const recipeBodyElement = this.elementReference.querySelector(".recipe-body");
         const recipeIngredientElement = this.elementReference.querySelector(".recipe-ingredients");
@@ -71,29 +82,55 @@ class Recipe {
             if (!Array.isArray(el.element)) {
                 el.element.innerText = el.section;
             }
-        })
+        });
         //set data-target and aria-controls on button to `collapse${recipeNumber}`
         recipeNameElement.setAttribute("data-target", `#collapse${recipeNumber}`);
         recipeNameElement.setAttribute("aria-controls", `collapse${recipeNumber}`);
-        //set id on recipe-body element to `collapse${recipeNumber}`
         recipeBodyElement.setAttribute("id", `collapse${recipeNumber}`);
+
         //display the recipe
         this.elementReference.classList.remove("hide");
         //add recipe to the DOM
         recipesElement.appendChild(this.elementReference);
+        //set up remove button/method
+        let removeButton = this.elementReference.querySelector(".remove-recipe");
+        removeButton.onclick = this.onRemoveRecipe.bind(this);
         //increment recipe number each time a new Recipe is created
         recipeNumber++;
     }
+
+    onRemoveRecipe(){
+        //Ask if user is sure they want to remove and cannot be undone.
+        let answer = confirm('Are you sure you wish to remove this recipe? (this cannot be undone)');
+
+        if(answer){
+            //Remove recipe from storage array
+            newRecipes.splice(newRecipes.findIndex(recipe => recipe.name === this.name), 1);
+            //Remove from local storage
+            localStorage.setItem("recipes", JSON.stringify(newRecipes));
+            //Remove recipe from the DOM
+            this.elementReference.remove();
+        }else{
+            return;
+        }
+    }
 }
 
-//set initial button state
-setButtonDisabled(true);
+/* -------------------------------------------- functions --------- */
 
-// Disable button function
-// - to use this, all three fields must contain some sort of text....
+
+
+function onSearch(){
+console.log(searchInput.value);
+}
+
+// Disable add recipe button unless all fields filled out
 function setButtonDisabled(isDisabled){
     addRecipeBtn.disabled = isDisabled;
 }
+
+// TODO: maybe add an if statement so that a click will either send a message to fill out fields
+// or if they are, execute the function.
 // function to check if all fields are filled out
 function onType() {
     if (!nameField.value||!ingredientsField.value||!prepField.value) {
@@ -103,8 +140,7 @@ function onType() {
     }
 }
 
-
-// Event handlers for Add button click, Create Default Recipes
+//when recipe is added, create and store the recipe
 function onAddRecipe () {
     //instantiate current recipe using Recipe class and text entered into fields
     let newRecipe = new Recipe(nameField.value, ingredientsField.value, prepField.value);
@@ -118,14 +154,22 @@ function onAddRecipe () {
 
     // Disable recipe submit button
     setButtonDisabled(true);
+    // collapse form
+    recipeSubmitForm.classList.remove("show");
+}
+
+//function to recreate recipes from local storage
+function recreateRecipes(name, ingredients, prep){
+    let newRecipe = new Recipe(name, ingredients, prep);
+    storeRecipe(newRecipe);
 }
 
 //store recipe in local storage
 function storeRecipe(recipe) {
-    // Add the recipe to the allRecipes array
-    allRecipes.push(recipe);
-    // Save allRecipes array to localStorage
-    localStorage.setItem("recipes", JSON.stringify(allRecipes));
+    // Add the recipe to the newRecipes array
+    newRecipes.push(recipe);
+    // Save newRecipes array to localStorage
+    localStorage.setItem("recipes", JSON.stringify(newRecipes));
 }
 
 // create three default recipes and display them
@@ -146,19 +190,27 @@ function createDefaultRecipes () {
         "2 1/4 cups bread flour, divided, 1/4 tsp salt, 1tsp sugar, 2 1/4 tsp or 1 sachet bread yeast, 1tbsp olive oil, 3/4 cup warm water, 8oz tomato sauce, 16oz grated mozzarella cheese",
         "Dissolve yeast and sugar with warm water in measuring jug - set aside for 10 mins, or until creamy foam forms on surface. Combine 2cups flour and salt in large bowl. When yeast is active, pour liquid with olive oil into flour mixture, and combine until a ball of dough. Add flour as necessary, until ball no longer sticks to hands. Knead until a smooth ball, set aside, covered in bowl for 2 hours for dough to proof. Preheat oven to hottest temperature/550 F. Spread oil and flour over a large pizza pan/cookie sheet. Knead dough for several minutes, then roll out so it covers the pan, pushing and pulling on dough to shape. Spread sauce out thinly over dough, then cover with grated mozzarella and whatever toppings you like. Put in oven for 5-8 minutes, slice while hot."
     );
-    //make array of def. recipes to make easier to deal with
-    const defaultRecipes = [recipe1, recipe2, recipe3];
-
-    // Call storeRecipe function on all three at once
-    defaultRecipes.map(recipe=>storeRecipe(recipe));
-
-    // The below code is just for reference
-    // Retrieve items from localStorage:
-    //  localStorage.getItem("recipes");
-    // TODO: move this vvvv somewhere else / figure out what to do with it
-    
 }
-//call out to provide default recipes
+
+//function to sort recipe display area
+
+//function to filter recipes by livesearch
+
+/* -------------------------------------------- runtime code --------- */
+
+//if local storage is empty, set savedrecipes to an empty array
+if(JSON.parse(localStorage.getItem("recipes"))===null){
+    savedRecipes = [];
+}else{
+    //if there are recipes in it, set savedrecipes to it's value
+    savedRecipes = JSON.parse(localStorage.getItem("recipes"));
+    console.log('the value of savedRecipes is', savedRecipes);
+    //then map savedrecipes and make a new recipe for each one
+    savedRecipes.map(recipe=>recreateRecipes(recipe.name, recipe.ingredients, recipe.prep));
+}
+
+//set initial button state
+setButtonDisabled(true);
+
+//immediately create default recipes
 createDefaultRecipes();
-let savedRecipes = JSON.parse(localStorage.getItem("recipes"));
-    console.log(savedRecipes);

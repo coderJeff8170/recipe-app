@@ -1,5 +1,16 @@
 #app-container {
-    background-color: cyan;
+    background-color: rgb(139, 138, 134);
+}
+
+.jumbotron {
+    background-color: rgba(238, 238, 238, 0.81) !important;
+    background-image: url(dodgers.png);
+    background-blend-mode: color;
+    background-size: cover;
+  }
+
+.jumbotron > h1 {
+    font-family: 'Pacifico', cursive;
 }
 
 input, textarea {
@@ -8,4 +19,8 @@ input, textarea {
 
 .hide {
     display: none;
+}
+
+#submitRecipe {
+    float: right;
 }

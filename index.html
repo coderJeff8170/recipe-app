@@ -7,61 +7,82 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <!-- CSS stylesheet -->
     <link rel="stylesheet" href="styles.css">
     <!-- Javascript file -->
     <script src="scripts.js" defer></script>
-
     <title>My Recipe Box</title>
   </head>
+
   <body>
+    <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light">
+      <a class="navbar-brand" href="#">My Recipe Box</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        </ul>
+      <form id="searchForm" class="form-inline">
+        <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Recipe Name" aria-label="Search">
+        <button id="searchButton" class="btn btn-outline-success my-2 my-sm-0" onclick="onSearch()" type="submit">Search</button>
+      </form>
+    </nav>
     <div class="container-fluid" id="app-container">
-        <section id="titleSection" class="jumbotron">
+      
+        <!-- Jumbotron -->
+        <section id="titleSection" class="jumbotron text-center">
             <h1 class="display-4">My Recipe Box</h1>
             <p class="lead">Store your own recipes for later reference and use!</p>
             <hr class="my-4">
-            <p>Enter a recipe below and click the 'Submit Recipe' button to begin.</p>
+            <section id="recipeInput">
+              <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#recipeSubmitForm" aria-expanded="false" aria-controls="recipeSubmitForm">
+                  Add a recipe
+                </button>
+              </p>
+            
         </section>
-        <section id="recipeInput" class="row">
-            <div class="col">
+        <!-- Add recipe section -->
+
+          <div class="collapse" id="recipeSubmitForm">
+            <div class="card card-body">
+              <p>Enter a recipe below and click the 'Submit Recipe' button to begin.</p>
                 <form>
                     <!-- Recipe name text field -->
                     <div class="form-group">
                         <label for="name">Recipe Name</label>
-                        <input type="text" onkeyup="onType()" placeholder="Recipe name" id="name" />
+                        <input type="text" class="form-control" onkeyup="onType()" placeholder="Recipe name" id="name" />
                     </div>
                     <!-- Ingredients textarea -->
                     <div class="form-group">
                         <label for="ingredients">Ingredients List</label>
-                        <textarea id="ingredients" onkeyup="onType()" placeholder="Enter Ingredients"></textarea>
+                        <textarea class="form-control" id="ingredients" onkeyup="onType()" placeholder="Enter Ingredients"></textarea>
                     </div>
                     <!-- Preparation textarea -->
                     <div class="form-group">
                         <label for="preparation">Preparation Instructions</label>
-                        <textarea id="preparation" onkeyup="onType()" placeholder="Enter Instructions"></textarea>
+                        <textarea class="form-control" id="preparation" onkeyup="onType()" placeholder="Enter Instructions"></textarea>
                     </div>
-
                     <!-- Add button -->
-                    <button type="button" onclick="onAddRecipe()" id="submitRecipe" class="btn btn-lg btn-primary">Add Recipe</button>
+                    <button type="button" onclick="onAddRecipe()" id="submitRecipe" class="btn btn-md btn-primary">Submit Recipe</button>
                 </form>
             </div>
+          </div>
         </section>
-        <section id="recipeContainer" class="row">
-            <!-- <div class="row" id="all-recipes"> -->
-
-
-
+        <section id="recipeContainer">
                 <div class="accordion" id="all-recipes">
                     <div class="card hide" id="recipe-template">
                       <div class="card-header">
                         <h2 class="mb-0">
-                          <button class="btn btn-link btn-block text-left recipe-name" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                          <button class="btn btn-link btn-block text-left recipe-name collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
                             Recipe Name
                           </button>
                         </h2>
                       </div>
-                  
-                      <div id="collapse1" class="collapse show recipe-body">
+                      <div id="collapse1" class="recipe-body collapse">
                         <div class="card-body recipe-ingredients">
                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
                           </div>
@@ -72,24 +93,6 @@
                       </div>
                     </div>
                   </div>
-
-
-
-
-
-
-                <div class="col-12 recipe hide" id="recipe-template">
-                    <h2 class="recipe-name">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </h2>
-                    <p class="recipe-ingredients">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                    <p class="recipe-prep">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                    <a class="remove-recipe">Remove</a>
-                </div>
             </div>
         </section>
     </div>
