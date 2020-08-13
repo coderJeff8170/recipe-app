@@ -1,5 +1,3 @@
-console.log('hello!');
-
 /* REQUIREMENTS
     *UI - Add a thumbnail image for each recipe
     *UI - if they try to click without filling out all fields, do an alert.
@@ -45,7 +43,7 @@ const recipeTemplate = document.querySelector("#recipe-template");
 const recipesElement = document.querySelector("#all-recipes");
 const addRecipeBtn = document.querySelector("#submitRecipe");
 const recipeSubmitForm = document.querySelector("#recipeSubmitForm");
-const searchInput = document.querySelector("searchInput");
+const searchInput = document.querySelector("#searchInput");
 
 let recipeNumber = 0;
 let savedRecipes = [];
@@ -121,12 +119,6 @@ class Recipe {
 
 /* -------------------------------------------- functions --------- */
 
-
-
-function onSearch(){
-console.log(searchInput.value);
-}
-
 // Disable add recipe button unless all fields filled out
 function setButtonDisabled(isDisabled){
     addRecipeBtn.disabled = isDisabled;
@@ -197,24 +189,23 @@ function createDefaultRecipes () {
 
 //function to sort recipe display area
 function sortRecipes(){
-    // let recipeList = document.querySelectorAll("#all-recipes > .recipe");
-    // console.log(recipeList);
+
     let i, switching, divs, shouldSwitch;
-    // recipeList = document.getElementById("#all-recipes");
-    
+    //initialize state to start the iteration
     switching=true;
+    //iterate over the recipe list looking for items to switch
     while(switching){
         switching=false;
-        // divs=recipeList.querySelectorAll('.recipe');
         divs = document.querySelectorAll("#all-recipes > .recipe");
-        console.log(divs);
         for(i=0; i<(divs.length-1);i++){
             shouldSwitch=false;
+            //if you find one..
             if(divs[i].id.toLowerCase()>divs[i+1].id.toLowerCase()){
                 shouldSwitch=true;
                 break;
             }
         }
+        //..switch it out, and repeat.
         if(shouldSwitch){
             divs[i].parentNode.insertBefore(divs[i+1], divs[i]);
             switching=true;
@@ -224,6 +215,25 @@ function sortRecipes(){
 }
 
 //function to filter recipes by livesearch
+function filterRecipes(){
+
+    let filter, divs, div;
+    filter = searchInput.value.toUpperCase();
+
+    //get items from recipe container
+    divs = recipesElement.querySelectorAll(".recipe");
+
+    //loop through items, and display only those that match value of filter
+    for(let i=0; i<divs.length; i++) {
+        div = divs[i].id;
+        if(div.toUpperCase().indexOf(filter) > -1) {
+            divs[i].style.display = "";
+        }else{
+            divs[i].style.display = "none";
+        }
+    }
+
+}
 
 /* -------------------------------------------- runtime code --------- */
 
