@@ -83,6 +83,9 @@ class Recipe {
                 el.element.innerText = el.section;
             }
         });
+        //give each recipe a unique id
+        this.elementReference.setAttribute("id", `${this.name}`);
+
         //set data-target and aria-controls on button to `collapse${recipeNumber}`
         recipeNameElement.setAttribute("data-target", `#collapse${recipeNumber}`);
         recipeNameElement.setAttribute("aria-controls", `collapse${recipeNumber}`);
@@ -193,6 +196,32 @@ function createDefaultRecipes () {
 }
 
 //function to sort recipe display area
+function sortRecipes(){
+    // let recipeList = document.querySelectorAll("#all-recipes > .recipe");
+    // console.log(recipeList);
+    let i, switching, divs, shouldSwitch;
+    // recipeList = document.getElementById("#all-recipes");
+    
+    switching=true;
+    while(switching){
+        switching=false;
+        // divs=recipeList.querySelectorAll('.recipe');
+        divs = document.querySelectorAll("#all-recipes > .recipe");
+        console.log(divs);
+        for(i=0; i<(divs.length-1);i++){
+            shouldSwitch=false;
+            if(divs[i].id.toLowerCase()>divs[i+1].id.toLowerCase()){
+                shouldSwitch=true;
+                break;
+            }
+        }
+        if(shouldSwitch){
+            divs[i].parentNode.insertBefore(divs[i+1], divs[i]);
+            switching=true;
+        }
+    }
+    
+}
 
 //function to filter recipes by livesearch
 
