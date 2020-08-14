@@ -10,7 +10,7 @@
 }
 
 .jumbotron {
-    background-color: rgba(238, 238, 238, 0.81) !important;
+    background-color: rgba(238, 238, 238, 0.7) !important;
     background-image: url(dodgers.png);
     background-blend-mode: color;
     background-size: cover;

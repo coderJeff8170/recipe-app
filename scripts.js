@@ -142,6 +142,8 @@ function onAddRecipe () {
     // store the recipe
     storeRecipe(newRecipe);
 
+    sortRecipes();
+
     // Clear all text fields
     nameField.value = null;
     ingredientsField.value = null;
@@ -151,12 +153,14 @@ function onAddRecipe () {
     setButtonDisabled(true);
     // collapse form
     recipeSubmitForm.classList.remove("show");
+
 }
 
 //function to recreate recipes from local storage
 function recreateRecipes(name, ingredients, prep){
     let newRecipe = new Recipe(name, ingredients, prep);
     storeRecipe(newRecipe);
+
 }
 
 //store recipe in local storage
@@ -171,9 +175,9 @@ function storeRecipe(recipe) {
 function createDefaultRecipes () {
 
     const recipe1 = new Recipe(
-        "Cream Scones",
-        "2 cups flour, 5 tbsp butter (cold, cubed), 3 tbsp sugar, 1/2 tsp salt, 1 tbsp baking powder, 1 tbsp lemon zest (optional), 1 cup heavy cream",
-        "Combine dry ingredients, blitz for 6 seconds. Add butter cubes, pulse for 10 seconds. Pour mixture into a bowl and add heavy cream slowly until sticky dough forms. Cut into wedges, bake at 425F for 11-15 minutes until golden brown."
+        "Jammie Dodgers",
+        "2.5 cups flour, 1stick of butter(cold, cubed), 1/2 cup sugar, 1/2 tsp salt, 1 tsp baking powder, 60g Tate & Lyle Golden Syrup(essential), 1egg, 6tbsp raspberry or strawberry jam",
+        "Preheat oven 350F. Line two baking sheets with parchment. Combine dry ingredients, then cut in butter and mix until the consistency of cornmeal. Add whisked egg and golden syrup, mix until a ball of dough. Roll to 1/4inch thickness, and make rounds with a 2 1/2 - 3 inch cookie cutter, until dough is gone. Punch holes in half of the rounds, make more rounds with the reclaimed dough, and punch holes in half of those. Repeat until dough is gone. Bake rounds until golden brown, about 12-15 mins. Let cool. Apply jam to solid rounds, and put back in oven until jam is sticky, around 3 mins. Top the jammed solid rounds with the punched rounds, flat side to the jam. Enjoy."
     );
     const recipe2 = new Recipe(
         "Pancakes",
@@ -247,6 +251,7 @@ if(JSON.parse(localStorage.getItem("recipes"))===null){
     //then map savedrecipes and make a new recipe for each one
     savedRecipes.map(recipe=>recreateRecipes(recipe.name, recipe.ingredients, recipe.prep));
 }
+sortRecipes();
 
 //set initial button state
 setButtonDisabled(true);
