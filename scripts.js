@@ -44,6 +44,7 @@ const recipesElement = document.querySelector("#all-recipes");
 const addRecipeBtn = document.querySelector("#submitRecipe");
 const recipeSubmitForm = document.querySelector("#recipeSubmitForm");
 const searchInput = document.querySelector("#searchInput");
+const emptyMessage = document.querySelector("#emptyMessage");
 
 let recipeNumber = 0;
 let savedRecipes = [];
@@ -89,8 +90,11 @@ class Recipe {
         recipeNameElement.setAttribute("aria-controls", `collapse${recipeNumber}`);
         recipeBodyElement.setAttribute("id", `collapse${recipeNumber}`);
 
-        //display the recipe
+        //display the recipe and hide the empty message if it has it
         this.elementReference.classList.remove("hide");
+        if(!emptyMessage.classList.contains("hide")){
+            emptyMessage.classList.add("hide");
+        }
         //add recipe to the DOM
         recipesElement.appendChild(this.elementReference);
         //set up remove button/method
@@ -236,7 +240,27 @@ function filterRecipes(){
             divs[i].style.display = "none";
         }
     }
+}
 
+//TODO: make onConfirm function?
+
+function onRemoveAll(){
+    //TODO: remove hide class from emptyMessage
+
+    //Ask if user is sure they want to remove recipes and cannot be undone.
+    let answer = confirm('Are you sure you wish all recipes? (this cannot be undone)');
+
+    if(answer){
+        //TODO: Remove all recipes from storage array
+        newRecipes=[];
+        //Empty 'recipes' in local storage
+        localStorage.setItem("recipes", null);
+        //Remove recipes from the DOM
+        document.querySelectorAll(".recipe").forEach(recipe=>recipe.remove());
+        emptyMessage.classList.remove("hide");
+    }else{
+        return;
+    }
 }
 
 /* -------------------------------------------- runtime code --------- */

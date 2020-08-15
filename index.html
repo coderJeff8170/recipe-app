@@ -21,19 +21,23 @@
   </head>
 
   <body>
-    <nav class="navbar fixed-top navbar-expand-sm navbar-light" style="background-color: #c7edff;">
-      <a class="navbar-brand" href="#">My Recipe Box</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        </ul>
-      <form id="searchForm" class="form-inline">
-        <input id="searchInput" onkeyup="filterRecipes()" class="form-control mr-sm-2" type="search" placeholder="Recipe Name" aria-label="Search">
-        <!-- <button id="searchButton" class="btn btn-outline-success my-2 my-sm-0" onclick="onSearch()" type="submit">Search</button> -->
-      </form>
-    </nav>
+    <section id="navigation">
+      <nav class="navbar fixed-top navbar-expand-sm navbar-light" style="background-color: #c7edff;">
+        <a class="navbar-brand" href="#">My Recipe Box</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          </ul>
+          <form id="searchForm" class="form-inline">
+            <input id="searchInput" onkeyup="filterRecipes()" class="form-control mr-sm-2" type="search"
+              placeholder="Search Recipe Name" aria-label="Search">
+          </form>
+          </div>
+      </nav>
+    </section>
     <div class="container-fluid" id="app-container">
       
         <!-- Jumbotron -->
@@ -41,16 +45,13 @@
             <h1 class="display-4 text-primary">My Recipe Box</h1>
             <p class="lead">Store your own recipes for later reference and use!</p>
             <hr class="my-4">
-            <section id="recipeInput">
-              <p>
+            
+              
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#recipeSubmitForm" aria-expanded="false" aria-controls="recipeSubmitForm">
                   Add a recipe
                 </button>
-              </p>
-            
-        </section>
-        <!-- Add recipe section -->
 
+        <!-- Add recipe form (inside jumbotron) -->
           <div class="collapse" id="recipeSubmitForm">
             <div class="card card-body">
               <p>Enter a recipe below and click the 'Submit Recipe' button to begin.</p>
@@ -76,29 +77,34 @@
             </div>
           </div>
         </section>
+
         <section id="recipeContainer">
-                <div class="accordion" id="all-recipes">
-                    <div class="card hide recipe" id="recipe-template">
-                      <div class="card-header">
-                        <h2 class="mb-0">
-                          <button class="btn btn-link btn-block text-left recipe-name collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-                            Recipe Name
-                          </button>
-                        </h2>
-                      </div>
-                      <div id="collapse1" class="recipe-body collapse">
-                        <div class="card-body recipe-ingredients">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
-                          </div>
-                        <div class="card-body recipe-prep">
-                          Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+              <div id="emptyMessage" class="hide">There are no recipes to display. Click the Add Recipe button to get started!
+              </div>
+              <div class="accordion" id="all-recipes">
+                  <div class="card hide recipe" id="recipe-template">
+                    <div class="card-header">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-center recipe-name collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                          Recipe Name
+                        </button>
+                      </h2>
+                    </div>
+                    <div id="collapse1" class="recipe-body collapse">
+                      <div class="card-body recipe-ingredients">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. 
                         </div>
-                        <button class="btn btn-primary remove-recipe">Remove</button>
+                      <div class="card-body recipe-prep">
+                        Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
                       </div>
+                      <button class="btn btn-primary remove-recipe">Remove</button>
                     </div>
                   </div>
-            </div>
+                </div>
         </section>
+        <footer class="page-footer text-right">
+          <button class="btn btn-warning btn-sm" onclick="onRemoveAll()">Remove All Recipes</button>
+        </footer>
     </div>
 
     <!-- Optional JavaScript -->

@@ -1,5 +1,9 @@
-#app-container {
+body{
     background-color: rgb(139, 138, 134);
+}
+
+#app-container {
+    padding-top: 70px;
 }
 
 #searchInput{
@@ -7,6 +11,10 @@
     background-position: 10px 10px;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
+}
+
+#recipeSubmitForm {
+    padding-top: 10px;
 }
 
 .jumbotron {
