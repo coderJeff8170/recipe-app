@@ -97,13 +97,21 @@
                       <div class="card-body recipe-prep">
                         Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
                       </div>
-                      <button class="btn btn-primary remove-recipe">Remove</button>
+                      <!-- <button id="remove-recipe" class="btn btn-primary remove-recipe">Remove</button> -->
+                      <p class="text-right remove-para">
+                        <a id="remove-recipe" class="remove-button remove-recipe">Remove</a>
+                      </p>
+                      
                     </div>
                   </div>
                 </div>
         </section>
-        <footer class="page-footer text-right">
-          <button class="btn btn-warning btn-sm" onclick="onRemoveAll()">Remove All Recipes</button>
+        <footer class="page-footer">
+          <!-- <button id="remove-all" class="btn btn-warning btn-sm" onclick="onRemoveAll()">Remove All Recipes</button> -->
+          <p class="text-right remove-para">
+            <a id="remove-all" class="remove-button" onclick="onRemoveAll()">Remove All Recipes</a>
+          </p>
+          
         </footer>
     </div>
 

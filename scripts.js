@@ -45,6 +45,7 @@ const addRecipeBtn = document.querySelector("#submitRecipe");
 const recipeSubmitForm = document.querySelector("#recipeSubmitForm");
 const searchInput = document.querySelector("#searchInput");
 const emptyMessage = document.querySelector("#emptyMessage");
+const removeAll = document.querySelector("#remove-all");
 
 let recipeNumber = 0;
 let savedRecipes = [];
@@ -102,6 +103,8 @@ class Recipe {
         removeButton.onclick = this.onRemoveRecipe.bind(this);
         //increment recipe number each time a new Recipe is created
         recipeNumber++;
+        //make sure the remove button shows
+        removeAll.classList.remove("hide");
     }
 
     onRemoveRecipe(){
@@ -258,6 +261,7 @@ function onRemoveAll(){
         //Remove recipes from the DOM
         document.querySelectorAll(".recipe").forEach(recipe=>recipe.remove());
         emptyMessage.classList.remove("hide");
+        removeAll.classList.add("hide");
     }else{
         return;
     }

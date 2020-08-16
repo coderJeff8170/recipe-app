@@ -17,6 +17,20 @@ body{
     padding-top: 10px;
 }
 
+.remove-para {
+    padding: 20px 20px 0 0;
+}
+
+#remove-recipe, #remove-all {
+    background-color: none;
+    color: rgb(220, 159, 46);
+}
+
+#remove-recipe:hover, #remove-all:hover {
+    cursor: pointer;
+    color: rgb(220, 98, 46);
+}
+
 .jumbotron {
     background-color: rgba(238, 238, 238, 0.7) !important;
     background-image: url(dodgers.png);
